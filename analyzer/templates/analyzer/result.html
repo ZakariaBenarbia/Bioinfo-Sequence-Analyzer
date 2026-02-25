@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Results | Sequence Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: #f5f4f0;
+            color: #1a1a1a;
+            padding: 2rem 1rem 4rem;
+        }
+
+        header { text-align: center; margin-bottom: 2.5rem; }
+
+        header h1 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: .4rem;
+        }
+
+        header p { font-size: .9rem; color: #777; font-weight: 300; }
+
+        .wrap { max-width: 720px; margin: 0 auto; }
+
+        /* ── Stat row ── */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat {
+            background: #fff;
+            border: 1px solid #e0ddd6;
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,.05);
+        }
+
+        .stat-label {
+            font-size: .68rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: .5rem;
+        }
+
+        .stat-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .progress {
+            height: 5px;
+            background: #eee;
+            border-radius: 99px;
+            margin-top: .75rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #1a1a1a;
+            border-radius: 99px;
+        }
+
+        .stat-sub { font-size: .78rem; color: #aaa; margin-top: .4rem; }
+
+        /* ── Main card ── */
+        .card {
+            background: #fff;
+            border: 1px solid #e0ddd6;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,.06);
+        }
+
+        .card h2 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .seq-block { margin-bottom: 1.5rem; }
+        .seq-block:last-child { margin-bottom: 0; }
+
+        .seq-label {
+            font-size: .68rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: .4rem;
+        }
+
+        .seq-box {
+            background: #faf9f7;
+            border: 1px solid #e0ddd6;
+            border-radius: 7px;
+            padding: .9rem 1rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: .78rem;
+            word-break: break-all;
+            line-height: 1.7;
+            color: #1a1a1a;
+        }
+
+        /* ── Back link ── */
+        .back {
+            display: inline-block;
+            font-size: .82rem;
+            color: #1a1a1a;
+            text-decoration: none;
+            border: 1px solid #e0ddd6;
+            border-radius: 7px;
+            padding: .6rem 1.1rem;
+            transition: background .2s;
+            background: #fff;
+        }
+        .back:hover { background: #f5f4f0; }
+
+        @media (max-width: 520px) {
+            .stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Analysis Report</h1>
+        <p>Processed results for your {{ type }} sequence</p>
+    </header>
+
+    <div class="wrap">
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">GC Content</div>
+                <div class="stat-value">{{ gc_percentage }}%</div>
+                <div class="progress">
+                    <div class="progress-fill" style="width: {{ gc_percentage }}%"></div>
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">Molecule type</div>
+                <div class="stat-value">{{ type }}</div>
+                <div class="stat-sub">Nucleic acid</div>
+            </div>
+
+            <div class="stat" style="display:flex; align-items:flex-end;">
+                <div style="width:100%">
+                    <div class="stat-label">New analysis</div>
+                    <a href="{% url 'analyzer:web_form' %}" class="back" style="width:100%; text-align:center; display:block;">← Analyze new</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Sequence Mapping</h2>
+
+            <div class="seq-block">
+                <div class="seq-label">Original Sequence</div>
+                <div class="seq-box">{{ sequence }}</div>
+            </div>
+
+            <div class="seq-block">
+                <div class="seq-label">RNA Transcription</div>
+                <div class="seq-box">{{ rna }}</div>
+            </div>
+
+            <div class="seq-block">
+                <div class="seq-label">Protein Translation</div>
+                <div class="seq-box">{{ protein }}</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
