@@ -89,8 +89,3 @@ There is a placeholder `tests.py` in the `analyzer` app. You can add Django test
 ```bash
 python manage.py test
 ```
-
-### License
-
-Add your preferred license here (e.g. MIT, Apache-2.0).
-
