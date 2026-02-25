@@ -89,3 +89,9 @@ There is a placeholder `tests.py` in the `analyzer` app. You can add Django test
 ```bash
 python manage.py test
 ```
+images from the app : </p>
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/18d37b71-865b-45f7-9469-1f1b1adbfff0" /></p>
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/48ace6aa-fe1b-431a-ad79-ae39e44f84c4" />
+
+
+
